@@ -18,6 +18,8 @@ $ ./gradlew bootRun
 
 ## Future Plans
 1. Add Unit Tests for Repository using DBUnit
+1. Add API Test using RestAssured
+1. Add auto code format
 1. Improve error handling
 1. Enhance logging
 1. Refactor the package structure to follow Clean Architecture principles
