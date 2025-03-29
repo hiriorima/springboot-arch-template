@@ -13,6 +13,7 @@ import com.example.arch_template.presentation.restapi.dto.UserResponse;
 import com.example.arch_template.presentation.restapi.mapper.UserApiMapper;
 import com.example.arch_template.usecase.service.UserUsecaseService;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -23,15 +24,15 @@ public class UserController {
     private final UserApiMapper userMapper;
     private final UserUsecaseService userUsecaseService;
 
-    @GetMapping("/{email}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable String email) {
-        UserResponse userResponse = userMapper.toUserResponse(userUsecaseService.getUser(email));
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable(name = "id") String id) {
+        UserResponse userResponse = userMapper.toUserResponse(userUsecaseService.getUser(id));
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUser(UserRequest userRequest) {
-        userUsecaseService.createUser(userMapper.toUserData(userRequest));
+    public ResponseEntity<Void> createUser(@RequestBody UserRequest req) {
+        userUsecaseService.createUser(userMapper.toUserData(req));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
