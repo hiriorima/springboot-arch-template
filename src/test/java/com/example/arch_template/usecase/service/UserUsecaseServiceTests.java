@@ -21,69 +21,70 @@ import com.example.arch_template.usecase.mapper.UserUsecaseMapper;
 
 class UserUsecaseServiceTests {
 
-    @Mock
-    private UserUsecaseMapper userMapper;
+	@Mock
+	private UserUsecaseMapper userMapper;
 
-    @Mock
-    private UserRepository userRepository;
+	@Mock
+	private UserRepository userRepository;
 
-    @InjectMocks
-    private UserUsecaseService userUsecaseService;
+	@InjectMocks
+	private UserUsecaseService userUsecaseService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.openMocks(this);
+	}
 
-    @Test
-    void testGetUser_UserFound() {
-        // Arrange
-        String id = "test@example.com";
-        UserEntity mockUserEntity = new UserEntity();
-        UserData mockUserData = new UserData(id, "Test User", "test@example.com");
-        when(userRepository.findById(id)).thenReturn(Optional.of(mockUserEntity));
-        when(userMapper.toUserData(mockUserEntity)).thenReturn(mockUserData);
+	@Test
+	void testGetUser_UserFound() {
+		// Arrange
+		String id = "test@example.com";
+		UserEntity mockUserEntity = new UserEntity();
+		UserData mockUserData = new UserData(id, "Test User", "test@example.com");
+		when(userRepository.findById(id)).thenReturn(Optional.of(mockUserEntity));
+		when(userMapper.toUserData(mockUserEntity)).thenReturn(mockUserData);
 
-        // Act
-        UserData result = userUsecaseService.getUser(id);
+		// Act
+		UserData result = userUsecaseService.getUser(id);
 
-        // Assert
-        assertEquals(mockUserData, result);
-        verify(userRepository).findById(id);
-        verify(userMapper).toUserData(mockUserEntity);
-    }
+		// Assert
+		assertEquals(mockUserData, result);
+		verify(userRepository).findById(id);
+		verify(userMapper).toUserData(mockUserEntity);
+	}
 
-    @Test
-    void testGetUser_UserNotFound() {
-        // Arrange
-        String id = "test@example.com";
-        when(userRepository.findById(id)).thenReturn(Optional.empty());
+	@Test
+	void testGetUser_UserNotFound() {
+		// Arrange
+		String id = "test@example.com";
+		when(userRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> userUsecaseService.getUser(id));
-        verify(userRepository).findById(id);
-        verifyNoInteractions(userMapper);
-    }
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> userUsecaseService.getUser(id));
+		verify(userRepository).findById(id);
+		verifyNoInteractions(userMapper);
+	}
 
-    @Test
-    void testCreateUser() {
-        // Arrange
-        String id = "john";
-        String name = "John Doe";
-        String email = "john@example.com";
-        UserData userData = new UserData(id, name, email);
-        UserEntity mockUserEntity = new UserEntity();
-        mockUserEntity.setId(id);
-        mockUserEntity.setName(name);
-        mockUserEntity.setEmail(email);
+	@Test
+	void testCreateUser() {
+		// Arrange
+		String id = "john";
+		String name = "John Doe";
+		String email = "john@example.com";
+		UserData userData = new UserData(id, name, email);
+		UserEntity mockUserEntity = new UserEntity();
+		mockUserEntity.setId(id);
+		mockUserEntity.setName(name);
+		mockUserEntity.setEmail(email);
 
-        when(userMapper.toUserEntity(userData)).thenReturn(mockUserEntity);
+		when(userMapper.toUserEntity(userData)).thenReturn(mockUserEntity);
 
-        // Act
-        userUsecaseService.createUser(userData);
+		// Act
+		userUsecaseService.createUser(userData);
 
-        // Assert
-        verify(userMapper).toUserEntity(userData);
-        verify(userRepository).save(mockUserEntity);
-    }
+		// Assert
+		verify(userMapper).toUserEntity(userData);
+		verify(userRepository).save(mockUserEntity);
+	}
+
 }

@@ -13,36 +13,37 @@ import com.example.arch_template.presentation.restapi.dto.UserResponse;
 
 class UserApiMapperTests {
 
-    private UserApiMapper userApiMapper;
+	private UserApiMapper userApiMapper;
 
-    @BeforeEach
-    void setUp() {
-        userApiMapper = Mappers.getMapper(UserApiMapper.class);
-    }
+	@BeforeEach
+	void setUp() {
+		userApiMapper = Mappers.getMapper(UserApiMapper.class);
+	}
 
-    @Test
-    void testToUserData() {
-        // Arrange
-        UserRequest userRequest = new UserRequest("john" ,"test@example.com", "John Doe");
- 
-        // Act
-        UserData userData = userApiMapper.toUserData(userRequest);
+	@Test
+	void testToUserData() {
+		// Arrange
+		UserRequest userRequest = new UserRequest("john", "test@example.com", "John Doe");
 
-        // Assert
-        assertEquals(userRequest.getEmail(), userData.getEmail());
-        assertEquals(userRequest.getName(), userData.getName());
-    }
+		// Act
+		UserData userData = userApiMapper.toUserData(userRequest);
 
-    @Test
-    void testToUserResponse() {
-        // Arrange
-        UserData userData = new UserData("john", "test@example.com", "John Doe");
+		// Assert
+		assertEquals(userRequest.getEmail(), userData.getEmail());
+		assertEquals(userRequest.getName(), userData.getName());
+	}
 
-        // Act
-        UserResponse userResponse = userApiMapper.toUserResponse(userData);
+	@Test
+	void testToUserResponse() {
+		// Arrange
+		UserData userData = new UserData("john", "test@example.com", "John Doe");
 
-        // Assert
-        assertEquals(userData.getEmail(), userResponse.getEmail());
-        assertEquals(userData.getName(), userResponse.getName());
-    }
+		// Act
+		UserResponse userResponse = userApiMapper.toUserResponse(userData);
+
+		// Assert
+		assertEquals(userData.getEmail(), userResponse.getEmail());
+		assertEquals(userData.getName(), userResponse.getName());
+	}
+
 }

@@ -26,61 +26,61 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebMvcTest(UserController.class)
 class UserControllerTests {
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @MockitoBean
-    private UserApiMapper userMapper;
+	@MockitoBean
+	private UserApiMapper userMapper;
 
-    @MockitoBean
-    private UserUsecaseService userUsecaseService;
+	@MockitoBean
+	private UserUsecaseService userUsecaseService;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+	private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    void testGetUser_UserFound() throws Exception {
-        // Arrange
-        String id = "john";
-        String email = "test@example.com";
-        String name = "John Doe";
-        UserResponse userResponse = new UserResponse(id, name, email);
-        UserData userData = new UserData(id, name, email);
-        when(userUsecaseService.getUser(id)).thenReturn(userData);
-        when(userMapper.toUserResponse(any())).thenReturn(userResponse);
+	@Test
+	void testGetUser_UserFound() throws Exception {
+		// Arrange
+		String id = "john";
+		String email = "test@example.com";
+		String name = "John Doe";
+		UserResponse userResponse = new UserResponse(id, name, email);
+		UserData userData = new UserData(id, name, email);
+		when(userUsecaseService.getUser(id)).thenReturn(userData);
+		when(userMapper.toUserResponse(any())).thenReturn(userResponse);
 
-        // Act & Assert
-        mockMvc.perform(get("/users/{id}", id)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.email").value(email))
-                .andExpect(jsonPath("$.name").value(name));
+		// Act & Assert
+		mockMvc.perform(get("/users/{id}", id).accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id").value(id))
+			.andExpect(jsonPath("$.email").value(email))
+			.andExpect(jsonPath("$.name").value(name));
 
-        verify(userUsecaseService).getUser(id);
-        verify(userMapper).toUserResponse(userData);
-    }
+		verify(userUsecaseService).getUser(id);
+		verify(userMapper).toUserResponse(userData);
+	}
 
-    // TODO: Add test for user not found
+	// TODO: Add test for user not found
 
-    @Test
-    void testCreateUser_Success() throws Exception {
-        // Arrange
-        String id = "new";
-        String email = "newuser@example.com";
-        String name = "New User";
-        UserRequest userRequest = new UserRequest(id, name, email);
-        UserData userData = new UserData(id, name, email);
+	@Test
+	void testCreateUser_Success() throws Exception {
+		// Arrange
+		String id = "new";
+		String email = "newuser@example.com";
+		String name = "New User";
+		UserRequest userRequest = new UserRequest(id, name, email);
+		UserData userData = new UserData(id, name, email);
 
-        doNothing().when(userUsecaseService).createUser(any());
-        when(userMapper.toUserData(any())).thenReturn(userData);
+		doNothing().when(userUsecaseService).createUser(any());
+		when(userMapper.toUserData(any())).thenReturn(userData);
 
-        // Act & Assert
-        mockMvc.perform(post("/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userRequest)))
-                .andExpect(status().isCreated());
+		// Act & Assert
+		mockMvc
+			.perform(post("/users").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(userRequest)))
+			.andExpect(status().isCreated());
 
-        verify(userMapper).toUserData(any());
-        verify(userUsecaseService).createUser(any());
-    }
+		verify(userMapper).toUserData(any());
+		verify(userUsecaseService).createUser(any());
+	}
+
 }

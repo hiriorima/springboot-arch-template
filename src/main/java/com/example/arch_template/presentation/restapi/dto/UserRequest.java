@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor // MockMVCのテストで使用するために必要
 public class UserRequest {
 
-    private String id;
-    private String name;
-    private String email;
+	private String id;
+
+	private String name;
+
+	private String email;
+
 }

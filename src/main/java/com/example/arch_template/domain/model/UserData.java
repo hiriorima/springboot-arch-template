@@ -7,9 +7,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserData {
 
-    private String id;
-    
-    private String name;
+	private String id;
 
-    private String email;
+	private String name;
+
+	private String email;
+
 }

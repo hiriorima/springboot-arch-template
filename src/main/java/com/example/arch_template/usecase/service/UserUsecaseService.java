@@ -12,15 +12,17 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserUsecaseService {
 
-    private final UserUsecaseMapper userMapper;
-    private final UserRepository userRepository;
+	private final UserUsecaseMapper userMapper;
 
-    public UserData getUser(String id) {
-        return userMapper.toUserData(userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found")));
-    }
+	private final UserRepository userRepository;
 
-    public void createUser(UserData userData) {
-        userRepository.save(userMapper.toUserEntity(userData));
-    }
+	public UserData getUser(String id) {
+		return userMapper
+			.toUserData(userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found")));
+	}
+
+	public void createUser(UserData userData) {
+		userRepository.save(userMapper.toUserEntity(userData));
+	}
+
 }

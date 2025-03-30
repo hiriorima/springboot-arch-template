@@ -6,5 +6,7 @@ import org.springframework.context.annotation.Import;
 @DataJpaTest
 @Import(UserRepositoryImpl.class)
 public class UserRepositoryImplTest {
- // TODO: Add test case using DBUnit
+
+	// TODO: Add test case using DBUnit
+
 }

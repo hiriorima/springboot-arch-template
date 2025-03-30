@@ -13,15 +13,16 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
-    private final UserJpaRepository userJpaRepository;
+	private final UserJpaRepository userJpaRepository;
 
-    @Override
-    public Optional<UserEntity> findById(String id) {
-        return userJpaRepository.findById(id);
-    }
+	@Override
+	public Optional<UserEntity> findById(String id) {
+		return userJpaRepository.findById(id);
+	}
 
-    @Override
-    public void save(UserEntity user) {
-        userJpaRepository.save(user);
-    }
+	@Override
+	public void save(UserEntity user) {
+		userJpaRepository.save(user);
+	}
+
 }

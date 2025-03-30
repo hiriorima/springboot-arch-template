@@ -13,11 +13,12 @@ import lombok.Setter;
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
 
-    @Id
-    @Column(length = 20)
-    private String id;
+	@Id
+	@Column(length = 20)
+	private String id;
 
-    private String name;
-    
-    private String email;
+	private String name;
+
+	private String email;
+
 }

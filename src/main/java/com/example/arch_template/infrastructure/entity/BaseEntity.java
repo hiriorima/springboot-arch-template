@@ -15,21 +15,22 @@ import lombok.Setter;
 @Setter
 public class BaseEntity {
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime updatedAt;
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime updatedAt;
 
-    @PrePersist
-    public void prePersist() {
-        LocalDateTime date = LocalDateTime.now();
-        setCreatedAt(date);
-        setUpdatedAt(date);
-    }
+	@PrePersist
+	public void prePersist() {
+		LocalDateTime date = LocalDateTime.now();
+		setCreatedAt(date);
+		setUpdatedAt(date);
+	}
 
-    @PreUpdate
-    public void preUpdate() {
-        setUpdatedAt(LocalDateTime.now());
-    }
+	@PreUpdate
+	public void preUpdate() {
+		setUpdatedAt(LocalDateTime.now());
+	}
+
 }

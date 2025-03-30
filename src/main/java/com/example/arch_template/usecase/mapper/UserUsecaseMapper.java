@@ -8,6 +8,9 @@ import com.example.arch_template.infrastructure.entity.UserEntity;
 
 @Mapper(config = ConfigMapper.class)
 public interface UserUsecaseMapper {
-    UserData toUserData(UserEntity userEntity);
-    UserEntity toUserEntity(UserData userData);
+
+	UserData toUserData(UserEntity userEntity);
+
+	UserEntity toUserEntity(UserData userData);
+
 }

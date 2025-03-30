@@ -21,18 +21,20 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
 
-    private final UserApiMapper userMapper;
-    private final UserUsecaseService userUsecaseService;
+	private final UserApiMapper userMapper;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable(name = "id") String id) {
-        UserResponse userResponse = userMapper.toUserResponse(userUsecaseService.getUser(id));
-        return new ResponseEntity<>(userResponse, HttpStatus.OK);
-    }
+	private final UserUsecaseService userUsecaseService;
 
-    @PostMapping
-    public ResponseEntity<Void> createUser(@RequestBody UserRequest req) {
-        userUsecaseService.createUser(userMapper.toUserData(req));
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<UserResponse> getUser(@PathVariable(name = "id") String id) {
+		UserResponse userResponse = userMapper.toUserResponse(userUsecaseService.getUser(id));
+		return new ResponseEntity<>(userResponse, HttpStatus.OK);
+	}
+
+	@PostMapping
+	public ResponseEntity<Void> createUser(@RequestBody UserRequest req) {
+		userUsecaseService.createUser(userMapper.toUserData(req));
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
 }

@@ -9,6 +9,9 @@ import com.example.arch_template.presentation.restapi.dto.UserResponse;
 
 @Mapper(config = ConfigMapper.class)
 public interface UserApiMapper {
-    UserData toUserData(UserRequest userRequest);
-    UserResponse toUserResponse(UserData userData);
+
+	UserData toUserData(UserRequest userRequest);
+
+	UserResponse toUserResponse(UserData userData);
+
 }
